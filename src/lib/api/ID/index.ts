@@ -34,6 +34,7 @@ export interface Geometry {
 	coordinates?: (number[] | null)[] | null;
 }
 export interface Properties {
+	stocked: { date: string; species: string; length: string };
 	NAME: string;
 }
 
@@ -44,6 +45,11 @@ const OpportunityType = {
 const County = {
 	ADA: 1
 } as const;
+
+/**
+ * Default sort order: stocked date desc.
+ * @returns latest stocking records from IDFG
+ */
 export async function getStockingRecords() {
 	const type = OpportunityType.RECOMMENDED_FISHING_WATERS;
 	const county = County.ADA;
@@ -68,8 +74,7 @@ export async function getStockingRecords() {
 	return stockingRecords as IDStockingResponse;
 }
 
-export async function getGeoJson(id: number) {
-	const serverNo: 0 | 1 = 1;
+export async function getGeoJsonFromServer(id: number, serverNo: 0 | 1 = 1) {
 	const baseUrl = `https://gisportal-idfg.idaho.gov/hosting/rest/services/Hydrography/Hydrography_Public/MapServer/${serverNo}/query?`;
 	const searchParams = new URLSearchParams({
 		where: `LLID= '${id}'`,
@@ -115,6 +120,22 @@ export async function getGeoJson(id: number) {
 	const url = baseUrl + searchParams.toString();
 	const response = await fetch(url);
 	const geoJson = await response.json();
-	console.log('geojson', geoJson);
+	console.debug('geojson', id, geoJson);
 	return geoJson as GeoJSON;
+}
+
+export async function getGeoJson(id: number) {
+	const servers = [0, 1];
+	let geoJson = await getGeoJsonFromServer(id, 0);
+	if (geoJson.features?.length) {
+		return geoJson;
+	}
+
+	geoJson = await getGeoJsonFromServer(id, 1);
+
+	if (geoJson.features?.length) {
+		return geoJson;
+	}
+
+	return null;
 }
