@@ -12,7 +12,7 @@ export default defineConfig({
       mode: 'development',
       strategies: 'injectManifest',
       scope: '/',
-      base: '/',
+      base: '/fmap',
       selfDestroying: process.env.SELF_DESTROYING_SW === 'true',
       manifest: {
         short_name: 'Fmap',
