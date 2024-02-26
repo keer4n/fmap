@@ -15,6 +15,9 @@ const config = {
 		serviceWorker: {
 			register: false
 		},
+		paths: {
+			base: '/fmap'
+		}
 		// files: {
 		// 	serviceWorker: 'src/service-worker/index.ts'
 		// }
