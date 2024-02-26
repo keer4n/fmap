@@ -19,7 +19,7 @@ export default defineConfig({
       manifest: {
         short_name: 'Fmap',
         name: 'Fmap',
-        start_url: '/fmap',
+        start_url: '/fmap/',
         scope: '/fmap/',
         display: 'standalone',
         theme_color: '#ffffff',

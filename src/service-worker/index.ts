@@ -22,10 +22,10 @@ cleanupOutdatedCaches()
 
 let allowlist: undefined | RegExp[]
 if (import.meta.env.DEV)
-allowlist  = [/^\/$/]
+allowlist  = [/^\/fmap\/$/]
 
 // to allow work offline
 registerRoute(new NavigationRoute(
-    createHandlerBoundToURL('/'),
+    createHandlerBoundToURL('/fmap/'),
     {allowlist}
 ))
