@@ -11,7 +11,6 @@ export default defineConfig({
       srcDir: './src',
       mode: 'development',
       strategies: 'injectManifest',
-      filename: 'service-worker/index.ts',
       scope: '/',
       base: '/',
       selfDestroying: process.env.SELF_DESTROYING_SW === 'true',

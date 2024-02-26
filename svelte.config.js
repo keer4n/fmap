@@ -15,9 +15,9 @@ const config = {
 		serviceWorker: {
 			register: false
 		},
-		files: {
-			serviceWorker: 'src/service-worker/index.ts'
-		}
+		// files: {
+		// 	serviceWorker: 'src/service-worker/index.ts'
+		// }
 	}
 };
 
