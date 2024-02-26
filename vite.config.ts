@@ -11,7 +11,9 @@ export default defineConfig({
       srcDir: './src',
       mode: 'development',
       strategies: 'injectManifest',
-      scope: '/',
+      // for deployment in github pages repo `/fmap`
+      scope: '/fmap/',
+      // for deployment in github pages repo `/fmap`
       base: './',
       selfDestroying: process.env.SELF_DESTROYING_SW === 'true',
       manifest: {
