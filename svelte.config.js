@@ -17,6 +17,12 @@ const config = {
 		},
 		paths: {
 			base: '/fmap'
+		},
+		prerender: {
+			handleHttpError({path, referrer, message}) {
+				console.info({path, referrer, message})
+
+			}
 		}
 		// files: {
 		// 	serviceWorker: 'src/service-worker/index.ts'
