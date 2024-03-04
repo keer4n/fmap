@@ -1,6 +1,8 @@
 import adapter from '@sveltejs/adapter-static';
 import preprocess from 'svelte-preprocess';
 
+const productionEnv = process.env.NODE_ENV == 'production';
+
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 
@@ -16,17 +18,16 @@ const config = {
 			register: false
 		},
 		paths: {
-			base: '/fmap'
+			base: productionEnv ? '/fmap' : ''
 		},
 		prerender: {
 			handleHttpError({path, referrer, message}) {
 				console.info({path, referrer, message})
 
 			}
+		},
+		files: {
 		}
-		// files: {
-		// 	serviceWorker: 'src/service-worker/index.ts'
-		// }
 	}
 };
 
