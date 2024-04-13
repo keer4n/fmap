@@ -16,6 +16,7 @@
 	let faLayer: GeoJSON<any, Geometry>;
 	let map: LMap;
 	const locObjectLayerMap = new Map();
+	let mapLoaded = false;
 
 	onMount(() => {
 		import('leaflet').then(async (L) => {
@@ -116,7 +117,7 @@
 	}
 
 	$: selectedStockData = {
-		fishery: 'Boise River',
+		fishery: 'Test Boise River',
 		date: '2023/07/12',
 		quantity: 90,
 		species: 'Trout',
@@ -129,6 +130,7 @@
 			addFa(filteredRecords[idx], map, faLayer, locObjectLayerMap).then((r) => {
 				selectedStockData = r;
 			});
+			mapLoaded = true;
 	}
 
 	// $: console.log('selectedlayer', selectedLayer);
@@ -138,8 +140,8 @@
 </script>
 
 <main>
-	<div id="map" />
-	<div id="controls">
+	<div id="map" class:hidden={!mapLoaded} />
+	<div id="controls" class:hidden={!mapLoaded}>
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<button
 			class="i"
@@ -190,6 +192,7 @@
 			<Icon i="right" />
 		</button>
 	</div>
+	<div class:hidden={mapLoaded}> Splash Screen </div>
 </main>
 
 <style>
